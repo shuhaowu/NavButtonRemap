@@ -1,4 +1,4 @@
-package com.shuhaowu.openbuttonmap;
+package com.shuhaowu.apps.navbuttonremap;
 
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -11,7 +11,7 @@ import android.util.Log;
 
 
 public class MainActivity extends AppCompatPreferenceActivity {
-    private static final String TAG = "OpenButtonMap";
+    private static final String TAG = "NavButtonRemapActivity";
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -92,10 +92,10 @@ public class MainActivity extends AppCompatPreferenceActivity {
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("back_button_action_portrait"));
             bindPreferenceSummaryToValue(findPreference("switch_app_button_action_portrait"));
-            bindPreferenceSummaryToValue(findPreference("back_button_action_landscape_90"));
-            bindPreferenceSummaryToValue(findPreference("switch_app_button_action_landscape_90"));
-            bindPreferenceSummaryToValue(findPreference("back_button_action_landscape_270"));
-            bindPreferenceSummaryToValue(findPreference("switch_app_button_action_landscape_270"));
+            bindPreferenceSummaryToValue(findPreference("back_button_action_buttons_left"));
+            bindPreferenceSummaryToValue(findPreference("switch_app_button_action_buttons_left"));
+            bindPreferenceSummaryToValue(findPreference("back_button_action_buttons_right"));
+            bindPreferenceSummaryToValue(findPreference("switch_app_button_action_buttons_right"));
             setAccessibilityServiceText();
         }
 
@@ -103,16 +103,16 @@ public class MainActivity extends AppCompatPreferenceActivity {
             Preference enableButtonMap = findPreference("enable_button_map");
 
             if (!accessibilityServiceEnabled()) {
-                Log.d("OpenButtonMap", "Set Enable Instruction");
+                Log.d(TAG, "Set Enable Instruction");
                 enableButtonMap.setSummary(R.string.pref_description_enable_button_map_enable_instruction);
             } else {
-                Log.d("OpenButtonMap", "Set Disable Instruction");
+                Log.d(TAG, "Set Disable Instruction");
                 enableButtonMap.setSummary(R.string.pref_description_enable_button_map_disable_instruction);
             }
         }
 
         private boolean accessibilityServiceEnabled() {
-            final String service = getActivity().getPackageName() + "/" + OpenButtonMapService.class.getCanonicalName();
+            final String service = getActivity().getPackageName() + "/" + NavButtonRemapService.class.getCanonicalName();
             Log.v(TAG, service);
             TextUtils.SimpleStringSplitter stringColonSplitter = new TextUtils.SimpleStringSplitter(':');
 

@@ -1,4 +1,4 @@
-package com.shuhaowu.openbuttonmap;
+package com.shuhaowu.apps.navbuttonremap;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

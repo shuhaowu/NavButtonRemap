@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OpenButtonMap</string>
+    <string name="app_name">Nav Button Remap</string>
     <string name="app_description">
         Using accessibility service to map HARDWARE buttons from one to another.
     </string>
@@ -7,17 +7,17 @@
     <!-- Strings related to Settings -->
     <string name="pref_title_enable_button_map">Accessibility Settings</string>
     <string name="pref_description_enable_button_map_enable_instruction">
-        Button Map is NOT ENABLED. To enable, tap this and then turn OpenButtonMap in the Services
-        section to ON.
+        Nav Button Remap is NOT ENABLED. To enable, tap this and then turn Nav Button Remap in the
+        Services section to ON.
     </string>
     <string name="pref_description_enable_button_map_disable_instruction">
-        Button Map is ENABLED. To disable, tap this and then turn OpenButtonMap in the Services
-        section to OFF.
+        Nav Button Remap is ENABLED. To disable, tap this and then turn Nav Button Remap in the
+        Services section to OFF.
     </string>
 
-    <string name="pref_portrait_config_title">If buttons are on the bottom (Portrait)</string>
-    <string name="pref_landscape_90_config_title">If buttons are on the left (Landscape)</string>
-    <string name="pref_landscape_270_config_title">If buttons are on the right (Landscape)</string>
+    <string name="pref_portrait_config_title">If screen is in portrait mode</string>
+    <string name="pref_buttons_left_config_title">If buttons are on the left (Landscape)</string>
+    <string name="pref_buttons_right_config_title">If buttons are on the right (Landscape)</string>
 
     <string name="pref_back_button_action">Back button action</string>
     <string-array name="pref_back_button_action_titles">

@@ -1,17 +1,16 @@
-package com.shuhaowu.openbuttonmap;
+package com.shuhaowu.apps.navbuttonremap;
 
 import android.accessibilityservice.AccessibilityService;
-import android.app.Service;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Surface;
+import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 
-public class OpenButtonMapService extends AccessibilityService {
-    private static final String TAG = "OpenButtonMapService";
+public class NavButtonRemapService extends AccessibilityService {
+    private static final String TAG = "NavButtonRemapService";
     private static final String BACK = "0";
     private static final String SWITCH_APP = "1";
 
@@ -27,8 +26,27 @@ public class OpenButtonMapService extends AccessibilityService {
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String backButtonActionPrefKey = "back_button_action_portrait";
-        String switchAppButtonActionPrefKey = "switch_app_button_action_portrait";
+        String backButtonActionPrefKey;
+        String switchAppButtonActionPrefKey;
+
+        int rotation = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getRotation();
+        switch (rotation) {
+            case Surface.ROTATION_90:
+                // button on the right.
+                backButtonActionPrefKey = "back_button_action_buttons_right";
+                switchAppButtonActionPrefKey = "switch_app_button_action_buttons_right";
+                Log.d(TAG, "Landscape 90 - buttons on the right");
+            break;
+            case Surface.ROTATION_270:
+                // buttons on the left.
+                backButtonActionPrefKey = "back_button_action_buttons_left";
+                switchAppButtonActionPrefKey = "switch_app_button_action_buttons_left";
+                Log.d(TAG, "Landscape 270 - buttons on the left");
+            break;
+            default:
+                backButtonActionPrefKey = "back_button_action_portrait";
+                switchAppButtonActionPrefKey = "switch_app_button_action_portrait";
+        }
 
         switch (event.getKeyCode()) {
             case KeyEvent.KEYCODE_BACK:
@@ -50,6 +68,5 @@ public class OpenButtonMapService extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
-        Log.d(TAG, "onInterrupt");
     }
 }
