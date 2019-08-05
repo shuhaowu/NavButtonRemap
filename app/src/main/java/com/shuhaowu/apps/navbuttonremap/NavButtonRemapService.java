@@ -20,8 +20,14 @@ public class NavButtonRemapService extends AccessibilityService {
 
     @Override
     public boolean onKeyEvent(KeyEvent event) {
-        if (event.getAction() != KeyEvent.ACTION_UP || event.isCanceled()) {
+        if (event.getAction() != KeyEvent.ACTION_UP && event.getAction() != KeyEvent.ACTION_DOWN || event.isCanceled()) {
             return false;
+        }
+
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            // Don't want to send ACTION_DOWN to the apps as they may interpret it as a button
+            // press that's held down.
+            return true;
         }
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
