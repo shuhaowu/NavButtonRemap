@@ -20,11 +20,13 @@ public class NavButtonRemapService extends AccessibilityService {
 
     @Override
     public boolean onKeyEvent(KeyEvent event) {
-        if (event.getAction() != KeyEvent.ACTION_UP && event.getAction() != KeyEvent.ACTION_DOWN || event.isCanceled()) {
+        int keycode = event.getKeyCode();
+        int action = event.getAction();
+        if (action != KeyEvent.ACTION_UP && action != KeyEvent.ACTION_DOWN || event.isCanceled()) {
             return false;
         }
 
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+        if (action == KeyEvent.ACTION_DOWN && (keycode == KeyEvent.KEYCODE_BACK || keycode == KeyEvent.KEYCODE_APP_SWITCH)) {
             // Don't want to send ACTION_DOWN to the apps as they may interpret it as a button
             // press that's held down.
             return true;
@@ -59,14 +61,17 @@ public class NavButtonRemapService extends AccessibilityService {
                 if (pref.getString(backButtonActionPrefKey, BACK).equals(SWITCH_APP)) {
                     performGlobalAction(GLOBAL_ACTION_RECENTS);
                     return true;
+                } else {
+                    performGlobalAction(GLOBAL_ACTION_BACK);
+                    return true;
                 }
-            break;
             case KeyEvent.KEYCODE_APP_SWITCH:
                 if (pref.getString(switchAppButtonActionPrefKey, SWITCH_APP).equals(BACK)) {
                     performGlobalAction(GLOBAL_ACTION_BACK);
                     return true;
+                } else {
+                    performGlobalAction(GLOBAL_ACTION_RECENTS);
                 }
-            break;
         }
 
         return false;
